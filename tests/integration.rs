@@ -1,17 +1,17 @@
 mod common;
-use crate::common::{destroy, new_max17043_4, Command, Register, ADDR};
+use crate::common::{destroy, new_max17043, Command, Register, ADDR};
 use embedded_hal_mock::i2c::Transaction as I2cTrans;
 
 #[test]
-fn can_create_and_destroy_max17043_4() {
-    let sensor = new_max17043_4(&[]);
+fn can_create_and_destroy_max17043() {
+    let sensor = new_max17043(&[]);
     destroy(sensor);
 }
 
 #[test]
 fn can_get_version() {
     let version = 0xABCD;
-    let mut sensor = new_max17043_4(&[I2cTrans::write_read(
+    let mut sensor = new_max17043(&[I2cTrans::write_read(
         ADDR,
         vec![Register::VERSION],
         vec![0xAB, 0xCD],
@@ -23,7 +23,7 @@ fn can_get_version() {
 
 #[test]
 fn can_get_soc() {
-    let mut sensor = new_max17043_4(&[I2cTrans::write_read(
+    let mut sensor = new_max17043(&[I2cTrans::write_read(
         ADDR,
         vec![Register::SOC],
         vec![56, 151],
@@ -36,7 +36,7 @@ fn can_get_soc() {
 
 #[test]
 fn can_reset() {
-    let mut sensor = new_max17043_4(&[I2cTrans::write(
+    let mut sensor = new_max17043(&[I2cTrans::write(
         ADDR,
         vec![
             Register::COMMAND,
@@ -50,7 +50,7 @@ fn can_reset() {
 
 #[test]
 fn can_quickstart() {
-    let mut sensor = new_max17043_4(&[I2cTrans::write(
+    let mut sensor = new_max17043(&[I2cTrans::write(
         ADDR,
         vec![
             Register::MODE,

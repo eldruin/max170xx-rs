@@ -2,9 +2,9 @@ use crate::{ic, Command, Config, Error, Max1704x, Register};
 use core::marker::PhantomData;
 use embedded_hal::blocking::i2c;
 
-impl<I2C> Max1704x<I2C, ic::Max17043_4> {
+impl<I2C> Max1704x<I2C, ic::Max17043> {
     /// Create new instance of a MAX17043 or MAX17044 device.
-    pub fn new_max17043_4(i2c: I2C) -> Self {
+    pub fn new_max17043(i2c: I2C) -> Self {
         Max1704x {
             i2c,
             config: Config { bits: 0x971C },

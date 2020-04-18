@@ -52,14 +52,13 @@ struct Config {
 
 /// IC markers
 pub mod ic {
-    /// MAX17043/4 IC marker
-    pub struct Max17043_4(());
+    /// MAX17043 IC marker
+    pub struct Max17043(());
 }
 
 mod private {
     use super::ic;
     pub trait Sealed {}
 
-    impl Sealed for ic::Max17043_4 {}
-    // TODO impl Sealed for ic::Max17048_9 {}
+    impl Sealed for ic::Max17043 {}
 }

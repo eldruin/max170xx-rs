@@ -20,8 +20,8 @@ impl Command {
 }
 
 #[allow(unused)]
-pub fn new_max17043_4(transactions: &[I2cTrans]) -> Max1704x<I2cMock, ic::Max17043_4> {
-    Max1704x::new_max17043_4(I2cMock::new(transactions))
+pub fn new_max17043(transactions: &[I2cTrans]) -> Max1704x<I2cMock, ic::Max17043> {
+    Max1704x::new_max17043(I2cMock::new(transactions))
 }
 
 #[allow(unused)]

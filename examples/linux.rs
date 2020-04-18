@@ -3,7 +3,7 @@ use max1704x::Max1704x;
 
 fn main() {
     let dev = hal::I2cdev::new("/dev/i2c-1").unwrap();
-    let mut sensor = Max1704x::new_max17043_4(dev);
+    let mut sensor = Max1704x::new_max17043(dev);
     loop {
         let soc = sensor.soc().unwrap();
         println!("Charge: {:.2}%", soc);
