@@ -1,0 +1,35 @@
+[package]
+name = "max1704x"
+version = "0.1.0"
+authors = ["Diego Barrios Romero <eldruin@gmail.com>"]
+repository = "https://github.com/eldruin/max1704x-rs"
+license = "MIT OR Apache-2.0"
+description = "Platform-agnostic Rust driver for the MAX1704x 1-cell/2-cell fuel-gauge systems with ModelGauge for lithium-ion (Li+) batteries.\nCompatible with MAX17043, MAX17044, MAX17048 and MAX17049."
+readme = "README.md"
+keywords = ["fuel", "gauge", "lithium", "battery", "embedded-hal-driver"]
+categories = ["embedded", "hardware-support", "no-std"]
+homepage = "https://github.com/eldruin/max1704x-rs"
+documentation = "https://docs.rs/max1704x"
+include = [
+    "/**/*.rs",
+    "/Cargo.toml",
+    "/README.md",
+    "/CHANGELOG.md",
+    "/LICENSE-MIT",
+    "/LICENSE-APACHE",
+]
+edition = "2018"
+
+[badges]
+travis-ci = { repository = "eldruin/max1704x-rs", branch = "master" }
+coveralls = { repository = "eldruin/max1704x-rs", branch = "master", service = "github" }
+
+[dependencies]
+embedded-hal = "0.2.3"
+
+[dev-dependencies]
+linux-embedded-hal = "0.3"
+embedded-hal-mock = "0.7"
+
+[profile.release]
+lto = true
