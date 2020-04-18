@@ -16,6 +16,7 @@ impl Register {
 pub struct Command;
 impl Command {
     pub const POR: u16 = 0x0054;
+    pub const QSTRT: u16 = 0x4000;
 }
 
 #[allow(unused)]

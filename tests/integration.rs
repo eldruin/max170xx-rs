@@ -34,3 +34,17 @@ fn can_reset() {
     sensor.reset().unwrap();
     destroy(sensor);
 }
+
+#[test]
+fn can_quickstart() {
+    let mut sensor = new_max17043_4(&[I2cTrans::write(
+        ADDR,
+        vec![
+            Register::MODE,
+            ((Command::QSTRT & 0xFF00) >> 8) as u8,
+            (Command::QSTRT & 0xFF) as u8,
+        ],
+    )]);
+    sensor.quickstart().unwrap();
+    destroy(sensor);
+}

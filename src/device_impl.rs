@@ -23,6 +23,15 @@ impl<I2C, E, IC> Max1704x<I2C, IC>
 where
     I2C: i2c::WriteRead<Error = E> + i2c::Write<Error = E>,
 {
+    /// Quick start
+    ///
+    /// Restarts fuel-gauge calculations in the same manner as initial power-up
+    /// of the IC. This is useful if an application's power-up sequence
+    /// is exceedingly noisy
+    pub fn quickstart(&mut self) -> Result<(), Error<E>> {
+        self.write_register(Register::MODE, Command::QSTRT)
+    }
+
     /// Get IC version
     pub fn version(&mut self) -> Result<u16, Error<E>> {
         self.read_register(Register::VERSION)

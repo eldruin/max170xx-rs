@@ -61,5 +61,5 @@ mod private {
     pub trait Sealed {}
 
     impl Sealed for ic::Max17043_4 {}
-    // TODO impl Sealed for ic::Max17043_4 {}
+    // TODO impl Sealed for ic::Max17048_9 {}
 }
