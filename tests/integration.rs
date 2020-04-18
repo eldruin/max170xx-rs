@@ -35,6 +35,19 @@ fn can_get_soc() {
 }
 
 #[test]
+fn can_get_voltage() {
+    let mut sensor = new_max17043(&[I2cTrans::write_read(
+        ADDR,
+        vec![Register::VCELL],
+        vec![0x87, 0x8F],
+    )]);
+    let v = sensor.voltage().unwrap();
+    assert!((v - 0.1) < 2.71);
+    assert!((v + 0.1) > 2.71);
+    destroy(sensor);
+}
+
+#[test]
 fn can_reset() {
     let mut sensor = new_max17043(&[I2cTrans::write(
         ADDR,

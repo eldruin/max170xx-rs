@@ -50,6 +50,17 @@ where
     }
 }
 
+impl<I2C, E> Max1704x<I2C, ic::Max17043>
+where
+    I2C: i2c::WriteRead<Error = E> + i2c::Write<Error = E>,
+{
+    /// Get battery voltage
+    pub fn voltage(&mut self) -> Result<f32, Error<E>> {
+        let vcell = self.read_register(Register::VCELL)?;
+        Ok(f32::from(vcell >> 4) / 800.0)
+    }
+}
+
 impl Config {
     fn with_high(self, mask: u16) -> Self {
         Config {
