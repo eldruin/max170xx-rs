@@ -32,6 +32,13 @@ where
         self.write_register(Register::MODE, Command::QSTRT)
     }
 
+    /// Get state of charge of the cell as calculated by the ModelGauge
+    /// algorithm as a percentage.
+    pub fn soc(&mut self) -> Result<f32, Error<E>> {
+        let soc = self.read_register(Register::SOC)?;
+        Ok(f32::from((soc & 0xFF00) >> 8) + f32::from(soc & 0xFF) / 256.0)
+    }
+
     /// Get IC version
     pub fn version(&mut self) -> Result<u16, Error<E>> {
         self.read_register(Register::VERSION)

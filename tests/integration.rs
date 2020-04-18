@@ -22,6 +22,19 @@ fn can_get_version() {
 }
 
 #[test]
+fn can_get_soc() {
+    let mut sensor = new_max17043_4(&[I2cTrans::write_read(
+        ADDR,
+        vec![Register::SOC],
+        vec![56, 151],
+    )]);
+    let soc = sensor.soc().unwrap();
+    assert!((soc - 0.5) < 56.59);
+    assert!((soc + 0.5) > 56.59);
+    destroy(sensor);
+}
+
+#[test]
 fn can_reset() {
     let mut sensor = new_max17043_4(&[I2cTrans::write(
         ADDR,
