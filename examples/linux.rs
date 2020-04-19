@@ -6,6 +6,8 @@ fn main() {
     let mut sensor = Max1704x::new_max17043(dev);
     loop {
         let soc = sensor.soc().unwrap();
+        let voltage = sensor.voltage().unwrap();
         println!("Charge: {:.2}%", soc);
+        println!("Voltage: {:.2}V", voltage);
     }
 }
