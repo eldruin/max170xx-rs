@@ -25,6 +25,11 @@ pub fn new_max17043(transactions: &[I2cTrans]) -> Max1704x<I2cMock, ic::Max17043
 }
 
 #[allow(unused)]
+pub fn new_max17044(transactions: &[I2cTrans]) -> Max1704x<I2cMock, ic::Max17044> {
+    Max1704x::new_max17044(I2cMock::new(transactions))
+}
+
+#[allow(unused)]
 pub fn destroy<IC>(sensor: Max1704x<I2cMock, IC>) {
     sensor.destroy().done();
 }

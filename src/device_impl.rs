@@ -3,7 +3,7 @@ use core::marker::PhantomData;
 use embedded_hal::blocking::i2c;
 
 impl<I2C> Max1704x<I2C, ic::Max17043> {
-    /// Create new instance of a MAX17043 or MAX17044 device.
+    /// Create new instance of a MAX17043 device.
     pub fn new_max17043(i2c: I2C) -> Self {
         Max1704x {
             i2c,
@@ -12,6 +12,17 @@ impl<I2C> Max1704x<I2C, ic::Max17043> {
         }
     }
 }
+impl<I2C> Max1704x<I2C, ic::Max17044> {
+    /// Create new instance of a MAX17044 device.
+    pub fn new_max17044(i2c: I2C) -> Self {
+        Max1704x {
+            i2c,
+            config: Config { bits: 0x971C },
+            _ic: PhantomData,
+        }
+    }
+}
+
 impl<I2C, IC> Max1704x<I2C, IC> {
     /// Destroy driver instance, return I2C bus.
     pub fn destroy(self) -> I2C {
@@ -58,6 +69,17 @@ where
     pub fn voltage(&mut self) -> Result<f32, Error<E>> {
         let vcell = self.read_register(Register::VCELL)?;
         Ok(f32::from(vcell >> 4) / 800.0)
+    }
+}
+
+impl<I2C, E> Max1704x<I2C, ic::Max17044>
+where
+    I2C: i2c::WriteRead<Error = E> + i2c::Write<Error = E>,
+{
+    /// Get battery voltage
+    pub fn voltage(&mut self) -> Result<f32, Error<E>> {
+        let vcell = self.read_register(Register::VCELL)?;
+        Ok(f32::from(vcell >> 4) / 400.0)
     }
 }
 

@@ -1,5 +1,5 @@
 mod common;
-use crate::common::{destroy, new_max17043, Command, Register, ADDR};
+use crate::common::{destroy, new_max17043, new_max17044, Command, Register, ADDR};
 use embedded_hal_mock::i2c::Transaction as I2cTrans;
 
 #[test]
@@ -38,7 +38,8 @@ macro_rules! get_float {
     };
 }
 get_float!(get_soc, new_max17043, soc, SOC, 56, 151, 56.59);
-get_float!(get_voltage, new_max17043, voltage, VCELL, 0x87, 0x8F, 2.71);
+get_float!(voltage_43, new_max17043, voltage, VCELL, 0x87, 0x8F, 2.71);
+get_float!(voltage_44, new_max17044, voltage, VCELL, 0x87, 0x8F, 5.42);
 
 macro_rules! cmd_test {
     ($name:ident, $create:ident, $method:ident, $reg:ident, $cmd:ident) => {
