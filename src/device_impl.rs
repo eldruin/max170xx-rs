@@ -30,34 +30,45 @@ impl<I2C, IC> Max1704x<I2C, IC> {
     }
 }
 
+macro_rules! impl_4344 {
+    ($ic:ident) => {
+        impl<I2C, E> Max1704x<I2C, ic::$ic>
+        where
+            I2C: i2c::WriteRead<Error = E> + i2c::Write<Error = E>,
+        {
+            /// Quick start
+            ///
+            /// Restarts fuel-gauge calculations in the same manner as initial power-up
+            /// of the IC. This is useful if an application's power-up sequence
+            /// is exceedingly noisy
+            pub fn quickstart(&mut self) -> Result<(), Error<E>> {
+                self.write_register(Register::MODE, Command::QSTRT)
+            }
+
+            /// Get state of charge of the cell as calculated by the ModelGauge
+            /// algorithm as a percentage.
+            pub fn soc(&mut self) -> Result<f32, Error<E>> {
+                let soc = self.read_register(Register::SOC)?;
+                Ok(f32::from((soc & 0xFF00) >> 8) + f32::from(soc & 0xFF) / 256.0)
+            }
+
+            /// Software reset
+            pub fn reset(&mut self) -> Result<(), Error<E>> {
+                self.write_register(Register::COMMAND, Command::POR_4344)
+            }
+        }
+    };
+}
+impl_4344!(Max17043);
+impl_4344!(Max17044);
+
 impl<I2C, E, IC> Max1704x<I2C, IC>
 where
     I2C: i2c::WriteRead<Error = E> + i2c::Write<Error = E>,
 {
-    /// Quick start
-    ///
-    /// Restarts fuel-gauge calculations in the same manner as initial power-up
-    /// of the IC. This is useful if an application's power-up sequence
-    /// is exceedingly noisy
-    pub fn quickstart(&mut self) -> Result<(), Error<E>> {
-        self.write_register(Register::MODE, Command::QSTRT)
-    }
-
-    /// Get state of charge of the cell as calculated by the ModelGauge
-    /// algorithm as a percentage.
-    pub fn soc(&mut self) -> Result<f32, Error<E>> {
-        let soc = self.read_register(Register::SOC)?;
-        Ok(f32::from((soc & 0xFF00) >> 8) + f32::from(soc & 0xFF) / 256.0)
-    }
-
     /// Get IC version
     pub fn version(&mut self) -> Result<u16, Error<E>> {
         self.read_register(Register::VERSION)
-    }
-
-    /// Software reset
-    pub fn reset(&mut self) -> Result<(), Error<E>> {
-        self.write_register(Register::COMMAND, Command::POR)
     }
 }
 
