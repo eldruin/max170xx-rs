@@ -21,56 +21,41 @@ fn can_get_version() {
     destroy(sensor);
 }
 
-#[test]
-fn can_get_soc() {
-    let mut sensor = new_max17043(&[I2cTrans::write_read(
-        ADDR,
-        vec![Register::SOC],
-        vec![56, 151],
-    )]);
-    let soc = sensor.soc().unwrap();
-    assert!((soc - 0.5) < 56.59);
-    assert!((soc + 0.5) > 56.59);
-    destroy(sensor);
+macro_rules! get_float {
+    ($name:ident, $create:ident, $method:ident, $reg:ident, $v0:expr, $v1:expr, $expected:expr) => {
+        #[test]
+        fn $name() {
+            let mut sensor = $create(&[I2cTrans::write_read(
+                ADDR,
+                vec![Register::$reg],
+                vec![$v0, $v1],
+            )]);
+            let v = sensor.$method().unwrap();
+            assert!((v - 0.1) < $expected);
+            assert!((v + 0.1) > $expected);
+            destroy(sensor);
+        }
+    };
 }
+get_float!(get_soc, new_max17043, soc, SOC, 56, 151, 56.59);
+get_float!(get_voltage, new_max17043, voltage, VCELL, 0x87, 0x8F, 2.71);
 
-#[test]
-fn can_get_voltage() {
-    let mut sensor = new_max17043(&[I2cTrans::write_read(
-        ADDR,
-        vec![Register::VCELL],
-        vec![0x87, 0x8F],
-    )]);
-    let v = sensor.voltage().unwrap();
-    assert!((v - 0.1) < 2.71);
-    assert!((v + 0.1) > 2.71);
-    destroy(sensor);
+macro_rules! cmd_test {
+    ($name:ident, $create:ident, $method:ident, $reg:ident, $cmd:ident) => {
+        #[test]
+        fn $name() {
+            let mut sensor = $create(&[I2cTrans::write(
+                ADDR,
+                vec![
+                    Register::$reg,
+                    ((Command::$cmd & 0xFF00) >> 8) as u8,
+                    (Command::$cmd & 0xFF) as u8,
+                ],
+            )]);
+            sensor.$method().unwrap();
+            destroy(sensor);
+        }
+    };
 }
-
-#[test]
-fn can_reset() {
-    let mut sensor = new_max17043(&[I2cTrans::write(
-        ADDR,
-        vec![
-            Register::COMMAND,
-            ((Command::POR & 0xFF00) >> 8) as u8,
-            (Command::POR & 0xFF) as u8,
-        ],
-    )]);
-    sensor.reset().unwrap();
-    destroy(sensor);
-}
-
-#[test]
-fn can_quickstart() {
-    let mut sensor = new_max17043(&[I2cTrans::write(
-        ADDR,
-        vec![
-            Register::MODE,
-            ((Command::QSTRT & 0xFF00) >> 8) as u8,
-            (Command::QSTRT & 0xFF) as u8,
-        ],
-    )]);
-    sensor.quickstart().unwrap();
-    destroy(sensor);
-}
+cmd_test!(reset, new_max17043, reset, COMMAND, POR);
+cmd_test!(quickstart, new_max17043, quickstart, MODE, QSTRT);
