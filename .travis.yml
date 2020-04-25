@@ -1,4 +1,9 @@
 language: rust
+dist: bionic # because of tarpaulin
+
+# env:
+#  global:
+#    - RUSTFLAGS="-D warnings"
 
 before_install:
   - git clone https://github.com/eldruin/rust-driver-ci-scripts ci
@@ -19,17 +24,6 @@ jobs:
             - libdw-dev
             - binutils-dev
             - cmake
-            - libssl-dev
-            - pkg-config
-            - zlib1g-dev
-          sources:
-            - kalakris-cmake
-
-    - env: TARGET=x86_64-unknown-linux-gnu
-      rust: nightly
-
-    - env: TARGET=x86_64-unknown-linux-musl
-      rust: nightly
 
     # Minimum Supported Rust Version
     - env: TARGET=x86_64-unknown-linux-gnu
@@ -47,6 +41,13 @@ jobs:
     - env: TARGET=thumbv7em-none-eabihf
     - env: TARGET=thumbv7m-none-eabi
 
+  allow_failures:
+    - env: TARGET=x86_64-unknown-linux-gnu
+      rust: nightly
+
+    - env: TARGET=x86_64-unknown-linux-musl
+      rust: nightly
+
 install:
   bash ci/install.sh
 
@@ -55,10 +56,10 @@ script:
 
 after_script: set +e
 
+cache: cargo
+
 before_cache:
   bash ci/before_cache.sh
-
-cache: cargo
 
 notifications:
   email:
