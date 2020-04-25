@@ -1,15 +1,15 @@
 [package]
-name = "max1704x"
+name = "max170xx"
 version = "0.1.0"
 authors = ["Diego Barrios Romero <eldruin@gmail.com>"]
-repository = "https://github.com/eldruin/max1704x-rs"
+repository = "https://github.com/eldruin/max170xx-rs"
 license = "MIT OR Apache-2.0"
-description = "Platform-agnostic Rust driver for the MAX1704x 1-cell/2-cell fuel-gauge systems with ModelGauge for lithium-ion (Li+) batteries.\nCompatible with MAX17043, MAX17044, MAX17048 and MAX17049."
+description = "Platform-agnostic Rust driver for the MAX170xx 1-cell/2-cell fuel-gauge systems with ModelGauge for lithium-ion (Li+) batteries.\nCompatible with MAX17043, MAX17044, MAX17048 MAX17049, MAX17058 and MAX17059."
 readme = "README.md"
 keywords = ["fuel", "gauge", "lithium", "battery", "embedded-hal-driver"]
 categories = ["embedded", "hardware-support", "no-std"]
-homepage = "https://github.com/eldruin/max1704x-rs"
-documentation = "https://docs.rs/max1704x"
+homepage = "https://github.com/eldruin/max170xx-rs"
+documentation = "https://docs.rs/max170xx"
 include = [
     "/**/*.rs",
     "/Cargo.toml",
@@ -21,8 +21,8 @@ include = [
 edition = "2018"
 
 [badges]
-travis-ci = { repository = "eldruin/max1704x-rs", branch = "master" }
-coveralls = { repository = "eldruin/max1704x-rs", branch = "master", service = "github" }
+travis-ci = { repository = "eldruin/max170xx-rs", branch = "master" }
+coveralls = { repository = "eldruin/max170xx-rs", branch = "master", service = "github" }
 
 [dependencies]
 embedded-hal = "0.2.3"

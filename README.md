@@ -4,8 +4,8 @@
 [![crates.io](https://img.shields.io/crates/v/max1704x.svg)](https://crates.io/crates/max1704x)
 [![Docs](https://docs.rs/max1704x/badge.svg)](https://docs.rs/max1704x)
 -->
-[![Build Status](https://travis-ci.com/eldruin/max1704x-rs.svg?branch=master)](https://travis-ci.com/eldruin/max1704x-rs)
-[![Coverage Status](https://coveralls.io/repos/github/eldruin/max1704x-rs/badge.svg?branch=master)](https://coveralls.io/github/eldruin/max1704x-rs?branch=master)
+[![Build Status](https://travis-ci.com/eldruin/max170xx-rs.svg?branch=master)](https://travis-ci.com/eldruin/max170xx-rs)
+[![Coverage Status](https://coveralls.io/repos/github/eldruin/max170xx-rs/badge.svg?branch=master)](https://coveralls.io/github/eldruin/max170xx-rs?branch=master)
 
 This is a platform agnostic Rust driver for the ultra-compact, low-cost,
 host-side fuel-gauge systems for lithium-ion (Li+) batteries in handheld
@@ -40,7 +40,7 @@ Please find additional examples using hardware in this repository: [driver-examp
 ## Support
 
 For questions, issues, feature requests, and other changes, please file an
-[issue in the github project](https://github.com/eldruin/max1704x-rs/issues).
+[issue in the github project](https://github.com/eldruin/max170xx-rs/issues).
 
 ## License
 
