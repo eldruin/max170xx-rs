@@ -30,38 +30,19 @@
 #![deny(unsafe_code, missing_docs)]
 #![no_std]
 
-use core::marker::PhantomData;
-mod device_impl;
 mod types;
-pub use crate::types::Error;
-mod register_address;
-use crate::register_address::{BitFlags, Command, Register};
-
-/// MAX1704x device driver
-#[derive(Debug)]
-pub struct Max1704x<I2C, IC> {
-    i2c: I2C,
-    config: Config,
-    _ic: PhantomData<IC>,
-}
+pub use types::Error;
+#[macro_use]
+mod common;
+#[macro_use]
+mod register_access;
+use register_access::{Command, Register, ADDR};
+mod max17043_44;
+pub use max17043_44::{Max17043, Max17044};
+mod max170x8_x9;
+pub use max170x8_x9::{Max17048, Max17049, Max17058, Max17059};
 
 #[derive(Debug, Default, Clone, Copy)]
 struct Config {
     bits: u16,
-}
-
-/// IC markers
-pub mod ic {
-    /// MAX17043 IC marker
-    pub struct Max17043(());
-    /// MAX17044 IC marker
-    pub struct Max17044(());
-}
-
-mod private {
-    use super::ic;
-    pub trait Sealed {}
-
-    impl Sealed for ic::Max17043 {}
-    impl Sealed for ic::Max17044 {}
 }
