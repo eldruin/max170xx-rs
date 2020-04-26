@@ -31,16 +31,16 @@
 #![no_std]
 
 mod types;
-pub use types::Error;
+pub use crate::types::Error;
 #[macro_use]
 mod common;
 #[macro_use]
 mod register_access;
-use register_access::{Command, Register, ADDR};
+use crate::register_access::{Command, Register, ADDR};
 mod max17043_44;
-pub use max17043_44::{Max17043, Max17044};
+pub use crate::max17043_44::{Max17043, Max17044};
 mod max170x8_x9;
-pub use max170x8_x9::{Max17048, Max17049, Max17058, Max17059};
+pub use crate::max170x8_x9::{Max17048, Max17049, Max17058, Max17059};
 
 #[derive(Debug, Default, Clone, Copy)]
 struct Config {
