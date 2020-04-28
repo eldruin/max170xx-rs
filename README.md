@@ -19,6 +19,8 @@ This driver allows you to:
 - Software reset. See: `reset()`.
 - Quickstart. See: `quickstart()`.
 - Get IC version. See: `version()`.
+- Only on MAX17048/MAX17049:
+    - Get charge/discharge rate. See: `charge_rate()`.
 
 <!-- TODO
 [Introductory blog post]()

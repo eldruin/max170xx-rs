@@ -12,12 +12,15 @@
 //! - Software reset. See: [`reset()`].
 //! - Quickstart. See: [`quickstart()`].
 //! - Get IC version. See: [`version()`].
+//! - Only on MAX17048/MAX17049:
+//!     - Get charge/discharge rate. See: [`charge_rate()`].
 //!
 //! [`soc()`]: struct.Max17043.html#method.soc
 //! [`voltage()`]: struct.Max17043.html#method.voltage
 //! [`reset()`]: struct.Max17043.html#method.reset
 //! [`quickstart()`]: struct.Max17043.html#method.quickstart
 //! [`version()`]: struct.Max17043.html#method.version
+//! [`charge_rate()`]: struct.Max17048.html#method.charge_rate
 //!
 //! <!-- TODO
 //! [Introductory blog post]()

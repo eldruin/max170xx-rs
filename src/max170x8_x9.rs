@@ -64,3 +64,21 @@ macro_rules! impl_common_x9 {
 }
 impl_common_x9!(Max17049);
 impl_common_x9!(Max17059);
+
+macro_rules! impl_common_48_49 {
+    ($ic:ident) => {
+        impl<I2C, E> $ic<I2C>
+        where
+            I2C: i2c::WriteRead<Error = E> + i2c::Write<Error = E>,
+        {
+            /// Get the approximate charge or discharge rate of the battery
+            /// in percentage / hour
+            pub fn charge_rate(&mut self) -> Result<f32, Error<E>> {
+                let rate = self.read_register(Register::CRATE)?;
+                Ok(f32::from(rate) * 0.208)
+            }
+        }
+    };
+}
+impl_common_48_49!(Max17048);
+impl_common_48_49!(Max17049);
