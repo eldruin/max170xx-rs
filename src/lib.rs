@@ -55,6 +55,56 @@
 //!
 //! [driver-examples]: https://github.com/eldruin/driver-examples
 //!
+//! ### Read state of charge and cell voltage
+//!
+//! ```no_run
+//! use linux_embedded_hal::I2cdev;
+//! use max170xx::Max17043;
+//!
+//! let dev = I2cdev::new("/dev/i2c-1").unwrap();
+//! let mut sensor = Max17043::new(dev);
+//! let soc = sensor.soc().unwrap();
+//! let voltage = sensor.voltage().unwrap();
+//! println!("Charge: {:.2}%", soc);
+//! println!("Voltage: {:.2}V", voltage);
+//! ```
+//!
+//! ### Trigger software reset
+//!
+//! ```no_run
+//! use linux_embedded_hal::I2cdev;
+//! use max170xx::Max17043;
+//!
+//! let dev = I2cdev::new("/dev/i2c-1").unwrap();
+//! let mut sensor = Max17043::new(dev);
+//! sensor.reset().unwrap();
+//! ```
+//!
+//! ### Quick start
+//!
+//! ```no_run
+//! use linux_embedded_hal::I2cdev;
+//! use max170xx::Max17043;
+//!
+//! let dev = I2cdev::new("/dev/i2c-1").unwrap();
+//! let mut sensor = Max17043::new(dev);
+//! // ... noisy power-up ...
+//! sensor.quickstart().unwrap();
+//! ```
+//!
+//! ### Read charge/discharge rate
+//!
+//! ```no_run
+//! use linux_embedded_hal::I2cdev;
+//! use max170xx::Max17048;
+//!
+//! let dev = I2cdev::new("/dev/i2c-1").unwrap();
+//! let mut sensor = Max17048::new(dev);
+//! let rate = sensor.charge_rate().unwrap();
+//! println!("Charge rate: {:.2}%/h", rate);
+//! ```
+//!
+
 #![deny(unsafe_code, missing_docs)]
 #![no_std]
 
