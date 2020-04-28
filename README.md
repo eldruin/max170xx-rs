@@ -13,9 +13,13 @@ and portable equipment using the [`embedded-hal`] traits.
 
 It is compatible with MAX17043, MAX17044, MAX17048, MAX17049, MAX17058 and MAX17059.
 
-<!-- TODO
 This driver allows you to:
--->
+- Get state of charge. See: `soc()`.
+- Get battery voltage. See: `voltage()`.
+- Software reset. See: `reset()`.
+- Quickstart. See: `quickstart()`.
+- Get IC version. See: `version()`.
+
 <!-- TODO
 [Introductory blog post]()
 -->

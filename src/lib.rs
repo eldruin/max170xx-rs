@@ -6,9 +6,19 @@
 //!
 //! [`embedded-hal`]: https://github.com/rust-embedded/embedded-hal
 //!
-//! <!-- TODO
 //! This driver allows you to:
-//! -->
+//! - Get state of charge. See: [`soc()`].
+//! - Get battery voltage. See: [`voltage()`].
+//! - Software reset. See: [`reset()`].
+//! - Quickstart. See: [`quickstart()`].
+//! - Get IC version. See: [`version()`].
+//!
+//! [`soc()`]: struct.Max17043.html#method.soc
+//! [`voltage()`]: struct.Max17043.html#method.voltage
+//! [`reset()`]: struct.Max17043.html#method.reset
+//! [`quickstart()`]: struct.Max17043.html#method.quickstart
+//! [`version()`]: struct.Max17043.html#method.version
+//!
 //! <!-- TODO
 //! [Introductory blog post]()
 //! -->
