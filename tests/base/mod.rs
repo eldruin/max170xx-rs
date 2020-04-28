@@ -9,7 +9,6 @@ impl Register {
     pub const SOC: u8 = 0x04;
     pub const MODE: u8 = 0x06;
     pub const VERSION: u8 = 0x08;
-    pub const CONFIG: u8 = 0x0C;
     pub const CRATE: u8 = 0x16;
     pub const COMMAND: u8 = 0xFE;
 }
