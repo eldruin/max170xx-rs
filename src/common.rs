@@ -1,4 +1,4 @@
-use crate::Config;
+//! Common methods
 
 macro_rules! impl_common {
     ($ic:ident) => {
@@ -6,7 +6,6 @@ macro_rules! impl_common {
         #[derive(Debug)]
         pub struct $ic<I2C> {
             i2c: I2C,
-            config: Config,
         }
 
         impl<I2C, E> $ic<I2C>
@@ -15,10 +14,7 @@ macro_rules! impl_common {
         {
             /// Create new instance of the device.
             pub fn new(i2c: I2C) -> Self {
-                $ic {
-                    i2c,
-                    config: Config { bits: 0x971C },
-                }
+                $ic { i2c }
             }
 
             /// Destroy driver instance, return I2C bus.
@@ -42,17 +38,4 @@ macro_rules! impl_common {
         }
         impl_register_access!($ic);
     };
-}
-
-impl Config {
-    fn with_high(self, mask: u16) -> Self {
-        Config {
-            bits: self.bits | mask,
-        }
-    }
-    fn with_low(self, mask: u16) -> Self {
-        Config {
-            bits: self.bits & !mask,
-        }
-    }
 }

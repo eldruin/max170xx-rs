@@ -1,4 +1,4 @@
-use crate::{Command, Config, Error, Register, ADDR};
+use crate::{Command, Error, Register, ADDR};
 use embedded_hal::blocking::i2c;
 
 impl_common!(Max17043);

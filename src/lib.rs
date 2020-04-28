@@ -66,8 +66,3 @@ mod max17043_44;
 pub use crate::max17043_44::{Max17043, Max17044};
 mod max170x8_x9;
 pub use crate::max170x8_x9::{Max17048, Max17049, Max17058, Max17059};
-
-#[derive(Debug, Default, Clone, Copy)]
-struct Config {
-    bits: u16,
-}
