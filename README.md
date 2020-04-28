@@ -25,9 +25,24 @@ This driver allows you to:
 -->
 
 ## The devices
-<!-- TODO 
-Datasheets: 
--->
+The devices are ultra-compact, low-cost, host-side fuel-gauge systems
+for lithium-ion (Li+) batteries in handheld and portable equipment.
+There are models configured to operate with a single or dual lithium
+cell pack.
+
+The devices use a sophisticated Li+ battery-modeling scheme, called
+ModelGauge(TM) to track the battery's relative state-of-charge (SOC)
+continuously over a widely varying charge/discharge profile. Unlike
+traditional fuel gauges, the ModelGauge algorithm eliminates the need
+for battery relearn cycles and an external current-sense resistor.
+Temperature compensation is possible in the application with minimal
+interaction between a μC and the device.
+
+The communication is done through an I2C interface. 
+
+Datasheets: [MAX17043/MAX17044](https://datasheets.maximintegrated.com/en/ds/MAX17043-MAX17044.pdf),
+[MAX17048/MAX17049](https://datasheets.maximintegrated.com/en/ds/MAX17048-MAX17049.pdf),
+[MAX17058/MAX17059](https://datasheets.maximintegrated.com/en/ds/MAX17058-MAX17059.pdf)
 
 ## Usage
 
