@@ -24,6 +24,32 @@ macro_rules! impl_common_x8_x9 {
                 self.write_register(Register::COMMAND, Command::POR_X8_X9)
             }
         }
+        impl<I2C, E> $ic<I2C>
+        where
+            I2C: i2c::WriteRead<Error = E> + i2c::Write<Error = E>,
+        {
+            /// Set table values.
+            ///
+            /// This unlocks the table registers, writes the table values and locks the
+            /// table registers again.
+            pub fn set_table(&mut self, table: &[u16; 64]) -> Result<(), Error<E>> {
+                // unlock table registers
+                self.write_u8_register(0x3F, 0x57)?;
+                self.write_u8_register(0x3E, 0x4A)?;
+
+                let mut data = [0; 129];
+                data[0] = 0x40;
+                for (i, v) in table.iter().enumerate() {
+                    data[i * 2 + 1] = ((v & 0xFF00) >> 8) as u8;
+                    data[i * 2 + 2] = (v & 0xFF) as u8;
+                }
+                self.i2c.write(ADDR, &data).map_err(Error::I2C)?;
+
+                // lock table again
+                self.write_u8_register(0x3F, 0x00)?;
+                self.write_u8_register(0x3E, 0x00)
+            }
+        }
     };
 }
 impl_common_x8_x9!(Max17048);

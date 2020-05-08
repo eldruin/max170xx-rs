@@ -14,6 +14,8 @@
 //! - Get IC version. See: [`version()`].
 //! - Only on MAX17048/MAX17049:
 //!     - Get charge/discharge rate. See: [`charge_rate()`].
+//! - Only on MAX17048/MAX17049/MAX17058/MAX17059:
+//!     - Set table registers. See: [`set_table()`].
 //!
 //! [`soc()`]: struct.Max17043.html#method.soc
 //! [`voltage()`]: struct.Max17043.html#method.voltage
@@ -21,6 +23,7 @@
 //! [`quickstart()`]: struct.Max17043.html#method.quickstart
 //! [`version()`]: struct.Max17043.html#method.version
 //! [`charge_rate()`]: struct.Max17048.html#method.charge_rate
+//! [`set_table()`]: struct.Max17048.html#method.set_table
 //!
 //! <!-- TODO
 //! [Introductory blog post]()

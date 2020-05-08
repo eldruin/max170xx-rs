@@ -21,6 +21,8 @@ This driver allows you to:
 - Get IC version. See: `version()`.
 - Only on MAX17048/MAX17049:
     - Get charge/discharge rate. See: `charge_rate()`.
+- Only on MAX17048/MAX17049/MAX17058/MAX17059:
+    - Set table registers. See: `set_table()`.
 
 <!-- TODO
 [Introductory blog post]()

@@ -93,12 +93,42 @@ mod max17044 {
     cmd_test!(reset, new_44, destroy_44, reset, COMMAND, POR_43_44);
 }
 
+macro_rules! set_table_test {
+    ($name:ident, $create:ident, $destroy:ident) => {
+        #[test]
+        fn $name() {
+            let mut expected: Vec<u8> = [0; 129]
+                .iter()
+                .enumerate()
+                .map(|(i, _)| {
+                    return i as u8;
+                })
+                .collect();
+            expected[0] = 0x40;
+            let mut data = [0; 64];
+            for i in 0..data.len() {
+                data[i] = (((i * 2 + 1) << 8) | i * 2 + 2) as u16;
+            }
+            let mut sensor = $create(&[
+                I2cTrans::write(ADDR, vec![0x3F, 0x57]),
+                I2cTrans::write(ADDR, vec![0x3E, 0x4A]),
+                I2cTrans::write(ADDR, expected),
+                I2cTrans::write(ADDR, vec![0x3F, 0x00]),
+                I2cTrans::write(ADDR, vec![0x3E, 0x00]),
+            ]);
+            sensor.set_table(&data).unwrap();
+            $destroy(sensor);
+        }
+    };
+}
+
 mod max17048 {
     use super::*;
     get_float!(get_soc, new_48, destroy_48, soc, SOC, 48, 126, 48.49);
     get_float!(voltage, new_48, destroy_48, voltage, VCELL, 0xA4, 0x9F, 3.29);
     get_float!(rate, new_48, destroy_48, charge_rate, CRATE, 1, 0x45, 67.6);
     cmd_test!(reset, new_48, destroy_48, reset, COMMAND, POR_X8_X9);
+    set_table_test!(set_table, new_48, destroy_48);
 }
 
 mod max17058 {
@@ -106,6 +136,7 @@ mod max17058 {
     get_float!(get_soc, new_58, destroy_58, soc, SOC, 48, 126, 48.49);
     get_float!(voltage, new_58, destroy_58, voltage, VCELL, 0xA4, 0x9F, 3.29);
     cmd_test!(reset, new_58, destroy_58, reset, COMMAND, POR_X8_X9);
+    set_table_test!(set_table, new_58, destroy_58);
 }
 
 mod max17049 {
@@ -114,6 +145,7 @@ mod max17049 {
     get_float!(voltage, new_49, destroy_49, voltage, VCELL, 0xA4, 0x9F, 6.58);
     get_float!(rate, new_49, destroy_49, charge_rate, CRATE, 1, 0x45, 67.6);
     cmd_test!(reset, new_49, destroy_49, reset, COMMAND, POR_X8_X9);
+    set_table_test!(set_table, new_49, destroy_49);
 }
 
 mod max17059 {
@@ -121,4 +153,5 @@ mod max17059 {
     get_float!(get_soc, new_59, destroy_59, soc, SOC, 48, 126, 48.49);
     get_float!(voltage, new_59, destroy_59, voltage, VCELL, 0xA4, 0x9F, 6.58);
     cmd_test!(reset, new_59, destroy_59, reset, COMMAND, POR_X8_X9);
+    set_table_test!(set_table, new_59, destroy_59);
 }

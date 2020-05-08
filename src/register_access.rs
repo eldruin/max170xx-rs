@@ -33,6 +33,16 @@ macro_rules! impl_register_access {
                 self.i2c.write(ADDR, &payload).map_err(Error::I2C)
             }
 
+            #[allow(unused)]
+            pub(crate) fn write_u8_register(
+                &mut self,
+                register: u8,
+                data: u8,
+            ) -> Result<(), Error<E>> {
+                let payload: [u8; 2] = [register, data];
+                self.i2c.write(ADDR, &payload).map_err(Error::I2C)
+            }
+
             pub(crate) fn read_register(&mut self, register: u8) -> Result<u16, Error<E>> {
                 let mut data = [0; 2];
                 self.i2c
