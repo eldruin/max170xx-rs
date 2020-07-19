@@ -1,9 +1,9 @@
 language: rust
 dist: bionic # because of tarpaulin
 
-# env:
-#  global:
-#    - RUSTFLAGS="-D warnings"
+env:
+  global:
+    - RUSTFLAGS="-D warnings"
 
 before_install:
   - git clone https://github.com/eldruin/rust-driver-ci-scripts ci
