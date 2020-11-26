@@ -4,7 +4,7 @@
 [![crates.io](https://img.shields.io/crates/v/max170xx.svg)](https://crates.io/crates/max170xx)
 [![Docs](https://docs.rs/max170xx/badge.svg)](https://docs.rs/max170xx)
 -->
-[![Build Status](https://travis-ci.com/eldruin/max170xx-rs.svg?branch=master)](https://travis-ci.com/eldruin/max170xx-rs)
+[![Build Status](https://github.com/eldruin/max170xx-rs/workflows/Build/badge.svg)](https://github.com/eldruin/max170xx-rs/actions?query=workflow%3ABuild)
 [![Coverage Status](https://coveralls.io/repos/github/eldruin/max170xx-rs/badge.svg?branch=master)](https://coveralls.io/github/eldruin/max170xx-rs?branch=master)
 
 This is a platform agnostic Rust driver for the ultra-compact, low-cost,
