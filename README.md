@@ -1,11 +1,10 @@
 # Rust MAX170xx 1-Cell/2-Cell Fuel Gauge for Lithium-ion (Li+) Batteries Driver
 
-<!-- TODO
 [![crates.io](https://img.shields.io/crates/v/max170xx.svg)](https://crates.io/crates/max170xx)
 [![Docs](https://docs.rs/max170xx/badge.svg)](https://docs.rs/max170xx)
--->
 [![Build Status](https://github.com/eldruin/max170xx-rs/workflows/Build/badge.svg)](https://github.com/eldruin/max170xx-rs/actions?query=workflow%3ABuild)
 [![Coverage Status](https://coveralls.io/repos/github/eldruin/max170xx-rs/badge.svg?branch=master)](https://coveralls.io/github/eldruin/max170xx-rs?branch=master)
+![Minimum Supported Rust Version](https://img.shields.io/badge/rustc-1.62+-blue.svg)
 
 This is a platform agnostic Rust driver for the ultra-compact, low-cost,
 host-side fuel-gauge systems for lithium-ion (Li+) batteries in handheld
@@ -42,7 +41,7 @@ for battery relearn cycles and an external current-sense resistor.
 Temperature compensation is possible in the application with minimal
 interaction between a μC and the device.
 
-The communication is done through an I2C interface. 
+The communication is done through an I2C interface.
 
 Datasheets: [MAX17043/MAX17044](https://datasheets.maximintegrated.com/en/ds/MAX17043-MAX17044.pdf),
 [MAX17048/MAX17049](https://datasheets.maximintegrated.com/en/ds/MAX17048-MAX17049.pdf),
@@ -78,14 +77,19 @@ fn main() {
 For questions, issues, feature requests, and other changes, please file an
 [issue in the github project](https://github.com/eldruin/max170xx-rs/issues).
 
+## Minimum Supported Rust Version (MSRV)
+
+This crate is guaranteed to compile on stable Rust 1.62 and up. It *might*
+compile with older versions but that may change in any new patch release.
+
 ## License
 
 Licensed under either of
 
  * Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE) or
-   http://www.apache.org/licenses/LICENSE-2.0)
+   <http://www.apache.org/licenses/LICENSE-2.0>)
  * MIT license ([LICENSE-MIT](LICENSE-MIT) or
-   http://opensource.org/licenses/MIT)
+   <http://opensource.org/licenses/MIT>)
 
 at your option.
 
