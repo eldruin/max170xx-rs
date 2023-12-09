@@ -20,15 +20,12 @@ include = [
 ]
 edition = "2018"
 
-[badges]
-coveralls = { repository = "eldruin/max170xx-rs", branch = "master", service = "github" }
-
 [dependencies]
 embedded-hal = "0.2.3"
 
 [dev-dependencies]
 linux-embedded-hal = "0.3"
-embedded-hal-mock = "0.7"
+embedded-hal-mock = "0.9"
 
 [profile.release]
 lto = true
