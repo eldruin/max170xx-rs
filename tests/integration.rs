@@ -127,6 +127,16 @@ mod max17048 {
     get_float!(get_soc, new_48, destroy_48, soc, SOC, 48, 126, 48.49);
     get_float!(voltage, new_48, destroy_48, voltage, VCELL, 0xA4, 0x9F, 3.29);
     get_float!(rate, new_48, destroy_48, charge_rate, CRATE, 1, 0x45, 67.6);
+    get_float!(
+        negative_rate,
+        new_48,
+        destroy_48,
+        charge_rate,
+        CRATE,
+        0xFE,
+        0xBB,
+        -67.6
+    );
     cmd_test!(reset, new_48, destroy_48, reset, COMMAND, POR_X8_X9);
     set_table_test!(set_table, new_48, destroy_48);
 }
@@ -144,6 +154,16 @@ mod max17049 {
     get_float!(get_soc, new_49, destroy_49, soc, SOC, 48, 126, 48.49);
     get_float!(voltage, new_49, destroy_49, voltage, VCELL, 0xA4, 0x9F, 6.58);
     get_float!(rate, new_49, destroy_49, charge_rate, CRATE, 1, 0x45, 67.6);
+    get_float!(
+        negative_rate,
+        new_49,
+        destroy_49,
+        charge_rate,
+        CRATE,
+        0xFE,
+        0xBB,
+        -67.6
+    );
     cmd_test!(reset, new_49, destroy_49, reset, COMMAND, POR_X8_X9);
     set_table_test!(set_table, new_49, destroy_49);
 }

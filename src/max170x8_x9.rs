@@ -100,7 +100,7 @@ macro_rules! impl_common_48_49 {
             /// Get the approximate charge or discharge rate of the battery
             /// in percentage / hour
             pub fn charge_rate(&mut self) -> Result<f32, Error<E>> {
-                let rate = self.read_register(Register::CRATE)?;
+                let rate = self.read_register(Register::CRATE)? as i16;
                 Ok(f32::from(rate) * 0.208)
             }
         }

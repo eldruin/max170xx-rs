@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - MSRV was raised to 1.62.0.
 
+### Fixed
+
+- MAX17048 & MAX17049 `charge_rate` correctly handles negative values (such as when discharging). See: [PR #2](https://github.com/eldruin/max170xx-rs/pull/2)
+
 ## 0.1.0 - 2020-07-19
 
 Initial release of the driver to crates.io.
