@@ -10,7 +10,7 @@ macro_rules! impl_common {
 
         impl<I2C, E> $ic<I2C>
         where
-            I2C: i2c::WriteRead<Error = E> + i2c::Write<Error = E>,
+            I2C: i2c::I2c<Error = E>,
         {
             /// Create new instance of the device.
             pub fn new(i2c: I2C) -> Self {

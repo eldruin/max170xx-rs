@@ -1,5 +1,5 @@
 use crate::{Command, Error, Register, ADDR};
-use embedded_hal::blocking::i2c;
+use embedded_hal::i2c;
 
 impl_common!(Max17048);
 impl_common!(Max17049);
@@ -10,7 +10,7 @@ macro_rules! impl_common_x8_x9 {
     ($ic:ident) => {
         impl<I2C, E> $ic<I2C>
         where
-            I2C: i2c::WriteRead<Error = E> + i2c::Write<Error = E>,
+            I2C: i2c::I2c<Error = E>,
         {
             /// Get state of charge of the cell as calculated by the ModelGauge
             /// algorithm as a percentage.
@@ -26,7 +26,7 @@ macro_rules! impl_common_x8_x9 {
         }
         impl<I2C, E> $ic<I2C>
         where
-            I2C: i2c::WriteRead<Error = E> + i2c::Write<Error = E>,
+            I2C: i2c::I2c<Error = E>,
         {
             /// Set table values.
             ///
@@ -61,7 +61,7 @@ macro_rules! impl_common_x8 {
     ($ic:ident) => {
         impl<I2C, E> $ic<I2C>
         where
-            I2C: i2c::WriteRead<Error = E> + i2c::Write<Error = E>,
+            I2C: i2c::I2c<Error = E>,
         {
             /// Get battery voltage in Volts
             pub fn voltage(&mut self) -> Result<f32, Error<E>> {
@@ -78,7 +78,7 @@ macro_rules! impl_common_x9 {
     ($ic:ident) => {
         impl<I2C, E> $ic<I2C>
         where
-            I2C: i2c::WriteRead<Error = E> + i2c::Write<Error = E>,
+            I2C: i2c::I2c<Error = E>,
         {
             /// Get battery voltage in Volts
             pub fn voltage(&mut self) -> Result<f32, Error<E>> {
@@ -95,7 +95,7 @@ macro_rules! impl_common_48_49 {
     ($ic:ident) => {
         impl<I2C, E> $ic<I2C>
         where
-            I2C: i2c::WriteRead<Error = E> + i2c::Write<Error = E>,
+            I2C: i2c::I2c<Error = E>,
         {
             /// Get the approximate charge or discharge rate of the battery
             /// in percentage / hour
