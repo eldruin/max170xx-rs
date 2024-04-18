@@ -29,7 +29,7 @@ impl_common_4x!(Max17044);
 
 impl<I2C, E> Max17043<I2C>
 where
-I2C: i2c::I2c<Error = E>,
+    I2C: i2c::I2c<Error = E>,
 {
     /// Get battery voltage
     pub fn voltage(&mut self) -> Result<f32, Error<E>> {
@@ -40,7 +40,7 @@ I2C: i2c::I2c<Error = E>,
 
 impl<I2C, E> Max17044<I2C>
 where
-I2C: i2c::I2c<Error = E>,
+    I2C: i2c::I2c<Error = E>,
 {
     /// Get battery voltage
     pub fn voltage(&mut self) -> Result<f32, Error<E>> {

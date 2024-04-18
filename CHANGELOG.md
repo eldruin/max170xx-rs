@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ...
 
+## 0.1.2 - 2024-4-18
+- Embedded-hal was raised to 1.0.0
+- linux-embedded-hal raised to 0.4 for embedded-hal 1.0.0 support
+- embedded-hal-mock specify embedded-hal 1.0.0 feature set
+
 ## 0.1.1 - 2023-12-11
 
 ### Changed
