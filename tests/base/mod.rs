@@ -1,4 +1,4 @@
-use embedded_hal_mock::i2c::{Mock as I2cMock, Transaction as I2cTrans};
+use embedded_hal_mock::eh1::i2c::{Mock as I2cMock, Transaction as I2cTrans};
 use max170xx::{Max17043, Max17044, Max17048, Max17049, Max17058, Max17059};
 
 pub const ADDR: u8 = 0b011_0110;

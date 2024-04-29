@@ -3,7 +3,7 @@ use crate::base::{
     destroy_43, destroy_44, destroy_48, destroy_49, destroy_58, destroy_59, new_43, new_44, new_48,
     new_49, new_58, new_59, Command, Register, ADDR,
 };
-use embedded_hal_mock::i2c::Transaction as I2cTrans;
+use embedded_hal_mock::eh1::i2c::Transaction as I2cTrans;
 
 macro_rules! get_float {
     ($name:ident, $create:ident, $destroy:ident, $method:ident, $reg:ident, $v0:expr, $v1:expr, $expected:expr) => {

@@ -21,7 +21,7 @@ macro_rules! impl_register_access {
     ($name:ident) => {
         impl<I2C, E> $name<I2C>
         where
-            I2C: i2c::Write<Error = E> + i2c::WriteRead<Error = E>,
+            I2C: i2c::I2c<Error = E>,
         {
             pub(crate) fn write_register(
                 &mut self,
