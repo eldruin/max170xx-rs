@@ -45,6 +45,9 @@
 //!
 //! The communication is done through an I2C interface.
 //!
+//! An async API using `embedded-hal-async` is available in the `asynch` module
+//! when the `async` feature is enabled.
+//!
 //! Datasheets: [MAX17043/MAX17044](https://datasheets.maximintegrated.com/en/ds/MAX17043-MAX17044.pdf),
 //! [MAX17048/MAX17049](https://datasheets.maximintegrated.com/en/ds/MAX17048-MAX17049.pdf),
 //! [MAX17058/MAX17059](https://datasheets.maximintegrated.com/en/ds/MAX17058-MAX17059.pdf)
@@ -122,3 +125,6 @@ mod max17043_44;
 pub use crate::max17043_44::{Max17043, Max17044};
 mod max170x8_x9;
 pub use crate::max170x8_x9::{Max17048, Max17049, Max17058, Max17059};
+
+#[cfg(feature = "async")]
+pub mod asynch;

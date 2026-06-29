@@ -50,7 +50,9 @@ Datasheets: [MAX17043/MAX17044](https://datasheets.maximintegrated.com/en/ds/MAX
 ## Usage
 
 To use this driver, import this crate and an `embedded_hal` implementation,
-then instantiate the device.
+then instantiate the device. For async I²C implementations based on
+`embedded-hal-async`, enable the `async` feature and use the device types from
+the `max170xx::asynch` module.
 
 Please find additional examples using hardware in this repository: [driver-examples]
 

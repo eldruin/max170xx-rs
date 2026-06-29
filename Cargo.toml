@@ -20,8 +20,12 @@ include = [
 ]
 edition = "2021"
 
+[features]
+async = ["dep:embedded-hal-async"]
+
 [dependencies]
 embedded-hal = "1.0.0"
+embedded-hal-async = { version = "1.0.0", optional = true }
 
 [dev-dependencies]
 linux-embedded-hal = "0.4"
