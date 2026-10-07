@@ -5,6 +5,20 @@ use crate::base::{
 };
 use embedded_hal_mock::eh1::i2c::Transaction as I2cTrans;
 
+#[cfg(not(feature = "async"))]
+macro_rules! call {
+    ($e:expr) => {
+        $e
+    };
+}
+
+#[cfg(feature = "async")]
+macro_rules! call {
+    ($e:expr) => {
+        embassy_futures::block_on($e)
+    };
+}
+
 macro_rules! get_float {
     ($name:ident, $create:ident, $destroy:ident, $method:ident, $reg:ident, $v0:expr, $v1:expr, $expected:expr) => {
         #[test]
@@ -14,7 +28,7 @@ macro_rules! get_float {
                 vec![Register::$reg],
                 vec![$v0, $v1],
             )]);
-            let v = sensor.$method().unwrap();
+            let v = call!(sensor.$method()).unwrap();
             assert!((v - 0.1) < $expected);
             assert!((v + 0.1) > $expected);
             $destroy(sensor);
@@ -34,7 +48,7 @@ macro_rules! cmd_test {
                     (Command::$cmd & 0xFF) as u8,
                 ],
             )]);
-            sensor.$method().unwrap();
+            call!(sensor.$method()).unwrap();
             $destroy(sensor);
         }
     };
@@ -59,7 +73,7 @@ macro_rules! common_tests {
                     vec![Register::VERSION],
                     vec![0xAB, 0xCD],
                 )]);
-                let v = sensor.version().unwrap();
+                let v = call!(sensor.version()).unwrap();
                 assert_eq!(v, version);
                 $destroy(sensor);
             }
@@ -116,7 +130,7 @@ macro_rules! set_table_test {
                 I2cTrans::write(ADDR, vec![0x3F, 0x00]),
                 I2cTrans::write(ADDR, vec![0x3E, 0x00]),
             ]);
-            sensor.set_table(&data).unwrap();
+            call!(sensor.set_table(&data)).unwrap();
             $destroy(sensor);
         }
     };

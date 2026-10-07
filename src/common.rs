@@ -8,6 +8,10 @@ macro_rules! impl_common {
             i2c: I2C,
         }
 
+        #[maybe_async_cfg::maybe(
+            sync(cfg(not(feature = "async")), keep_self),
+            async(feature = "async", keep_self)
+        )]
         impl<I2C, E> $ic<I2C>
         where
             I2C: i2c::I2c<Error = E>,
@@ -27,13 +31,13 @@ macro_rules! impl_common {
             /// Restarts fuel-gauge calculations in the same manner as initial power-up
             /// of the IC. This is useful if an application's power-up sequence
             /// is exceedingly noisy
-            pub fn quickstart(&mut self) -> Result<(), Error<E>> {
-                self.write_register(Register::MODE, Command::QSTRT)
+            pub async fn quickstart(&mut self) -> Result<(), Error<E>> {
+                self.write_register(Register::MODE, Command::QSTRT).await
             }
 
             /// Get IC version
-            pub fn version(&mut self) -> Result<u16, Error<E>> {
-                self.read_register(Register::VERSION)
+            pub async fn version(&mut self) -> Result<u16, Error<E>> {
+                self.read_register(Register::VERSION).await
             }
         }
         impl_register_access!($ic);

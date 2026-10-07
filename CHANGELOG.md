@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 <!-- next-header -->
 ## [Unreleased] - ReleaseDate
 
+### Added
+- Async support based on `embedded-hal-async` 1.0 behind the `async` feature.
+
+### Changed
+- MSRV was raised to 1.79.0.
+
 ## [1.0.0] - 2024-04-29
 
 ### Changed

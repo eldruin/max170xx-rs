@@ -61,6 +61,7 @@
 //! ### Read state of charge and cell voltage
 //!
 //! ```no_run
+//! # #[cfg(not(feature = "async"))] {
 //! use linux_embedded_hal::I2cdev;
 //! use max170xx::Max17043;
 //!
@@ -70,22 +71,26 @@
 //! let voltage = sensor.voltage().unwrap();
 //! println!("Charge: {:.2}%", soc);
 //! println!("Voltage: {:.2}V", voltage);
+//! # }
 //! ```
 //!
 //! ### Trigger software reset
 //!
 //! ```no_run
+//! # #[cfg(not(feature = "async"))] {
 //! use linux_embedded_hal::I2cdev;
 //! use max170xx::Max17043;
 //!
 //! let dev = I2cdev::new("/dev/i2c-1").unwrap();
 //! let mut sensor = Max17043::new(dev);
 //! sensor.reset().unwrap();
+//! # }
 //! ```
 //!
 //! ### Quick start
 //!
 //! ```no_run
+//! # #[cfg(not(feature = "async"))] {
 //! use linux_embedded_hal::I2cdev;
 //! use max170xx::Max17043;
 //!
@@ -93,11 +98,13 @@
 //! let mut sensor = Max17043::new(dev);
 //! // ... noisy power-up ...
 //! sensor.quickstart().unwrap();
+//! # }
 //! ```
 //!
 //! ### Read charge/discharge rate
 //!
 //! ```no_run
+//! # #[cfg(not(feature = "async"))] {
 //! use linux_embedded_hal::I2cdev;
 //! use max170xx::Max17048;
 //!
@@ -105,7 +112,31 @@
 //! let mut sensor = Max17048::new(dev);
 //! let rate = sensor.charge_rate().unwrap();
 //! println!("Charge rate: {:.2}%/h", rate);
+//! # }
 //! ```
+//!
+//! ### Async usage
+//!
+//! Enable the `async` feature to use this driver with an [`embedded-hal-async`]
+//! I2C implementation. The methods that communicate with the device then
+//! become `async`:
+//!
+//! ```toml
+//! max170xx = { version = "1", features = ["async"] }
+//! ```
+//!
+//! ```no_run
+//! # #[cfg(feature = "async")]
+//! # async fn example<I2C: embedded_hal_async::i2c::I2c>(i2c: I2C) {
+//! use max170xx::Max17043;
+//!
+//! let mut sensor = Max17043::new(i2c);
+//! let soc = sensor.soc().await.unwrap();
+//! let voltage = sensor.voltage().await.unwrap();
+//! # }
+//! ```
+//!
+//! [`embedded-hal-async`]: https://crates.io/crates/embedded-hal-async
 //!
 
 #![deny(unsafe_code, missing_docs)]
