@@ -4,7 +4,7 @@
 [![Docs](https://docs.rs/max170xx/badge.svg)](https://docs.rs/max170xx)
 [![Build Status](https://github.com/eldruin/max170xx-rs/workflows/Build/badge.svg)](https://github.com/eldruin/max170xx-rs/actions?query=workflow%3ABuild)
 [![Coverage Status](https://coveralls.io/repos/github/eldruin/max170xx-rs/badge.svg?branch=master)](https://coveralls.io/github/eldruin/max170xx-rs?branch=master)
-![Minimum Supported Rust Version](https://img.shields.io/badge/rustc-1.62+-blue.svg)
+![Minimum Supported Rust Version](https://img.shields.io/badge/rustc-1.79+-blue.svg)
 
 This is a platform agnostic Rust driver for the ultra-compact, low-cost,
 host-side fuel-gauge systems for lithium-ion (Li+) batteries in handheld
@@ -51,8 +51,8 @@ Datasheets: [MAX17043/MAX17044](https://datasheets.maximintegrated.com/en/ds/MAX
 
 To use this driver, import this crate and an `embedded_hal` implementation,
 then instantiate the device. For async I²C implementations based on
-`embedded-hal-async`, enable the `async` feature and use the device types from
-the `max170xx::asynch` module.
+`embedded-hal-async`, enable the `async` feature. The methods that communicate
+with the device then become `async`.
 
 Please find additional examples using hardware in this repository: [driver-examples]
 
@@ -81,7 +81,7 @@ For questions, issues, feature requests, and other changes, please file an
 
 ## Minimum Supported Rust Version (MSRV)
 
-This crate is guaranteed to compile on stable Rust 1.62 and up. It *might*
+This crate is guaranteed to compile on stable Rust 1.79 and up. It *might*
 compile with older versions but that may change in any new patch release.
 
 ## License

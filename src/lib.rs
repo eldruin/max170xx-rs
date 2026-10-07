@@ -45,9 +45,6 @@
 //!
 //! The communication is done through an I2C interface.
 //!
-//! An async API using `embedded-hal-async` is available in the `asynch` module
-//! when the `async` feature is enabled.
-//!
 //! Datasheets: [MAX17043/MAX17044](https://datasheets.maximintegrated.com/en/ds/MAX17043-MAX17044.pdf),
 //! [MAX17048/MAX17049](https://datasheets.maximintegrated.com/en/ds/MAX17048-MAX17049.pdf),
 //! [MAX17058/MAX17059](https://datasheets.maximintegrated.com/en/ds/MAX17058-MAX17059.pdf)
@@ -64,6 +61,7 @@
 //! ### Read state of charge and cell voltage
 //!
 //! ```no_run
+//! # #[cfg(not(feature = "async"))] {
 //! use linux_embedded_hal::I2cdev;
 //! use max170xx::Max17043;
 //!
@@ -73,22 +71,26 @@
 //! let voltage = sensor.voltage().unwrap();
 //! println!("Charge: {:.2}%", soc);
 //! println!("Voltage: {:.2}V", voltage);
+//! # }
 //! ```
 //!
 //! ### Trigger software reset
 //!
 //! ```no_run
+//! # #[cfg(not(feature = "async"))] {
 //! use linux_embedded_hal::I2cdev;
 //! use max170xx::Max17043;
 //!
 //! let dev = I2cdev::new("/dev/i2c-1").unwrap();
 //! let mut sensor = Max17043::new(dev);
 //! sensor.reset().unwrap();
+//! # }
 //! ```
 //!
 //! ### Quick start
 //!
 //! ```no_run
+//! # #[cfg(not(feature = "async"))] {
 //! use linux_embedded_hal::I2cdev;
 //! use max170xx::Max17043;
 //!
@@ -96,11 +98,13 @@
 //! let mut sensor = Max17043::new(dev);
 //! // ... noisy power-up ...
 //! sensor.quickstart().unwrap();
+//! # }
 //! ```
 //!
 //! ### Read charge/discharge rate
 //!
 //! ```no_run
+//! # #[cfg(not(feature = "async"))] {
 //! use linux_embedded_hal::I2cdev;
 //! use max170xx::Max17048;
 //!
@@ -108,7 +112,31 @@
 //! let mut sensor = Max17048::new(dev);
 //! let rate = sensor.charge_rate().unwrap();
 //! println!("Charge rate: {:.2}%/h", rate);
+//! # }
 //! ```
+//!
+//! ### Async usage
+//!
+//! Enable the `async` feature to use this driver with an [`embedded-hal-async`]
+//! I2C implementation. The methods that communicate with the device then
+//! become `async`:
+//!
+//! ```toml
+//! max170xx = { version = "1", features = ["async"] }
+//! ```
+//!
+//! ```no_run
+//! # #[cfg(feature = "async")]
+//! # async fn example<I2C: embedded_hal_async::i2c::I2c>(i2c: I2C) {
+//! use max170xx::Max17043;
+//!
+//! let mut sensor = Max17043::new(i2c);
+//! let soc = sensor.soc().await.unwrap();
+//! let voltage = sensor.voltage().await.unwrap();
+//! # }
+//! ```
+//!
+//! [`embedded-hal-async`]: https://crates.io/crates/embedded-hal-async
 //!
 
 #![deny(unsafe_code, missing_docs)]
@@ -125,6 +153,3 @@ mod max17043_44;
 pub use crate::max17043_44::{Max17043, Max17044};
 mod max170x8_x9;
 pub use crate::max170x8_x9::{Max17048, Max17049, Max17058, Max17059};
-
-#[cfg(feature = "async")]
-pub mod asynch;
