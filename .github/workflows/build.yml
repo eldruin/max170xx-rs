@@ -1,17 +1,12 @@
 name: Build
 on: [push, pull_request]
 
-env:
-  RUSTFLAGS: '--deny warnings'
-
 jobs:
   build:
-    name: Build
-    runs-on: ubuntu-latest
     strategy:
       matrix:
-        rust: [stable, beta, 1.79.0]
-        TARGET:
+        rust: [stable, 1.79.0]
+        target:
           - x86_64-unknown-linux-gnu
           - x86_64-unknown-linux-musl
           - arm-unknown-linux-gnueabi # Raspberry Pi 1
@@ -21,97 +16,21 @@ jobs:
           - thumbv7em-none-eabi
           - thumbv7em-none-eabihf
           - thumbv7m-none-eabi
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@master
-        with:
-          toolchain: ${{ matrix.rust }}
-          targets: ${{ matrix.TARGET }}
-
-      - name: Checkout CI scripts
-        uses: actions/checkout@v3
-        with:
-          repository: 'eldruin/rust-driver-ci-scripts'
-          ref: 'master'
-          path: 'ci'
-
-      - run: ./ci/patch-no-std.sh
-        if: ${{ ! contains(matrix.TARGET, 'x86_64') }}
-
-      - run: cargo build --target=${{ matrix.TARGET }}
+    uses: eldruin/rust-driver-ci-scripts/.github/workflows/build.yml@v1
+    with:
+      rust: ${{ matrix.rust }}
+      target: ${{ matrix.target }}
 
   checks:
-    name: Checks
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: x86_64-unknown-linux-gnu
-          components: rustfmt
-
-      - run: cargo doc
-      - run: cargo fmt --all -- --check
-
-  clippy:
-    name: Clippy
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@master
-        with:
-          toolchain: 1.85.0
-          targets: x86_64-unknown-linux-gnu
-          components: clippy
-
-      - run: cargo clippy --all-targets
-      - run: cargo clippy --lib --tests --features async
+    uses: eldruin/rust-driver-ci-scripts/.github/workflows/check.yml@v1
+    with:
+      clippy-version: 1.99.0
 
   test:
-    name: Tests
-    runs-on: ubuntu-latest
     strategy:
       matrix:
-        rust: [stable, beta]
-        TARGET: [x86_64-unknown-linux-gnu, x86_64-unknown-linux-musl]
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@master
-        with:
-          toolchain: ${{ matrix.rust }}
-          targets: ${{ matrix.TARGET }}
-
-      - name: Test
-        run: cargo test --target=${{ matrix.TARGET }}
-
-      - name: Test async
-        run: |
-          cargo test --target=${{ matrix.TARGET }} --features async --lib --tests
-          cargo test --target=${{ matrix.TARGET }} --features async --doc
-
-      - name: Build examples
-        run: cargo build --target=${{ matrix.TARGET }} --examples
-
-  coverage:
-    name: Coverage
-    runs-on: ubuntu-latest
-    container:
-      image: xd009642/tarpaulin:latest
-      options: --security-opt seccomp=unconfined
-    steps:
-
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-
-      - name: Run cargo-tarpaulin
-        run: cargo tarpaulin --out Lcov -- --test-threads 1
-
-      - name: upload to Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: './lcov.info'
+        target: [x86_64-unknown-linux-gnu, x86_64-unknown-linux-musl]
+    uses: eldruin/rust-driver-ci-scripts/.github/workflows/test.yml@v1
+    with:
+      rust: stable
+      target: ${{ matrix.target }}
